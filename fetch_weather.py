@@ -5,10 +5,10 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import time
 import os
 
-REALTIME_DATA_PATH = "/content/drive/MyDrive/Do_an/Data/realtime_weather_history.csv"
-
-API_KEY = '614c6943815553c19e55bb9ad160cf28' 
+API_KEY = os.getenv("API_KEY")
 BASE_URL = 'https://api.openweathermap.org/data/2.5/' 
+
+DATA_FILE = "weather_data.csv"
 
 province_coords = {
     "Ha Noi": (21.0285, 105.8542),
@@ -137,28 +137,27 @@ def fetch_parallel(max_workers = 5):
 
   return pd.DataFrame(result)
 
-def save_to_csv(df, filename="/content/drive/MyDrive/Do_an/Data/realtime_weather_history.csv"):
+def save_to_csv(df):
     if df.empty:
         print("Không có dữ liệu")
         return
 
-    file_exists = os.path.exists(filename)
+    file_exists = os.path.exists(DATA_FILE)
 
     df.to_csv(
-        filename,
+        DATA_FILE,
         mode="a",
         header=not file_exists,
         index=False
     )
 
-    print(f"Đã lưu {len(df)} dòng vào {filename}")
+    print(f"Đã lưu {len(df)} dòng")
 
 if __name__ == "__main__":
     print("Đang fetch dữ liệu...")
 
-    while True:
-        df = fetch_parallel(max_workers=5)
-        save_to_csv(df)
-        print("\n=== PREVIEW ===")
-        print(df.head())
-        time.sleep(3600)
+    df = fetch_parallel()
+
+    print(df.head())
+
+    save_to_csv(df)
