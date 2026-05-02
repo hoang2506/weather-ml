@@ -5,7 +5,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import time
 import os
 
-API_KEY = os.getenv("API_KEY")
+API_KEY = '614c6943815553c19e55bb9ad160cf28' 
 BASE_URL = 'https://api.openweathermap.org/data/2.5/' 
 
 DATA_FILE = "weather_data.csv"
