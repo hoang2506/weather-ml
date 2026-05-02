@@ -20,8 +20,6 @@ jobs:
 
       - run: python fetch_weather.py
 
-      - run: python retrain_model.py
-
       - name: Commit data
         run: |
           git config --global user.name "bot"
