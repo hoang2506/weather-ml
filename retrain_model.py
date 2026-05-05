@@ -31,7 +31,13 @@ def retrain_model():
 
     # 2. Load data
     df = pd.read_csv(DATA_PATH)
-    print(df.columns)
+    df.columns = [
+        "time","city","country",
+        "temperature","feels_like","temp_min","temp_max",
+        "humidity","pressure","visibility","cloudcover",
+        "wind_speed","wind_gust","wind_direction",
+        "weather_main","weather_group"
+    ]
 
     if df.empty:
         print("❌ File dữ liệu rỗng")
