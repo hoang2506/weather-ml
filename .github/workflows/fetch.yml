@@ -1,0 +1,34 @@
+name: Weather Auto Pipeline
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - run: pip install -r requirements.txt
+
+      - run: python fetch_weather.py
+
+      - run: python retrain_model.py
+
+      - name: Commit data
+        run: |
+          git config --global user.name "bot"
+          git config --global user.email "bot@example.com"
+          git stash                        # tạm cất thay đổi local
+          git pull origin main --rebase    # pull remote về
+          git stash pop                    # lấy lại thay đổi
+          git add .
+          git commit -m "update data" || echo "No changes to commit"
+          git push origin main
