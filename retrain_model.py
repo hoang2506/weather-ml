@@ -31,6 +31,7 @@ def retrain_model():
 
     # 2. Load data
     df = pd.read_csv(DATA_PATH)
+    print(df.columns)
 
     if df.empty:
         print("❌ File dữ liệu rỗng")
@@ -98,5 +99,4 @@ def retrain_model():
 
 # ===== RUN =====
 if __name__ == "__main__":
-    print(df.columns)
     retrain_model()
