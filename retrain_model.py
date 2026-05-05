@@ -98,4 +98,5 @@ def retrain_model():
 
 # ===== RUN =====
 if __name__ == "__main__":
+    print(df.columns)
     retrain_model()
