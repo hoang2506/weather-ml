@@ -28,4 +28,5 @@ jobs:
           git config --global user.email "bot@github.com"
           git add .
           git commit -m "update data" || echo "no change"
+          git pull --rebase
           git push
