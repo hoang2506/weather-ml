@@ -22,11 +22,11 @@ def encode_label(label):
 
 # ===== RETRAIN =====
 def retrain_model():
-    print("🚀 Start retrain...")
+    print("Bắt đầu retrain...")
 
     # 1. Check file
     if not os.path.exists(DATA_PATH):
-        print("❌ Không tìm thấy file dữ liệu")
+        print("Không tìm thấy file dữ liệu")
         return
 
     # 2. Load data
@@ -40,21 +40,21 @@ def retrain_model():
     ]
 
     if df.empty:
-        print("❌ File dữ liệu rỗng")
+        print("File dữ liệu rỗng")
         return
 
-    print("📊 Số dòng:", len(df))
+    print("Số dòng:", len(df))
 
     # 3. Clean
     df = df.dropna().drop_duplicates()
 
     if len(df) < MIN_ROWS:
-        print(f"⚠️ Chưa đủ dữ liệu ({len(df)} < {MIN_ROWS}) → bỏ qua")
+        print(f"Chưa đủ dữ liệu ({len(df)} < {MIN_ROWS}) → bỏ qua")
         return
 
     # 4. Encode
     if "weather_group" not in df.columns:
-        print("❌ Thiếu cột weather_group")
+        print("Thiếu cột weather_group")
         return
 
     df["label"] = df["weather_group"].apply(encode_label)
@@ -69,7 +69,7 @@ def retrain_model():
     # Check thiếu cột
     missing = [col for col in features if col not in df.columns]
     if missing:
-        print("❌ Thiếu cột:", missing)
+        print("Thiếu cột:", missing)
         return
 
     X = df[features]
@@ -95,13 +95,13 @@ def retrain_model():
     y_pred = model.predict(X_test)
     acc = accuracy_score(y_test, y_pred)
 
-    print(f"✅ Accuracy: {round(acc*100, 2)}%")
+    print(f"Accuracy: {round(acc*100, 2)}%")
 
     # 9. Save model
     joblib.dump(model, MODEL_PATH)
     print(f"💾 Saved model → {MODEL_PATH}")
 
-    print("🎉 Done retrain!")
+    print("Done retrain!")
 
 # ===== RUN =====
 if __name__ == "__main__":
