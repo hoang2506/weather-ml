@@ -5,12 +5,10 @@ from xgboost import XGBClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
-# ===== CONFIG =====
 DATA_PATH = "weather_data.csv"      # file được tạo từ fetch_weather.py
 MODEL_PATH = "train_model.py"    # nơi lưu model
 MIN_ROWS = 50                       # tối thiểu để train
 
-# ===== ENCODE LABEL =====
 def encode_label(label):
     mapping = {
         "Clear": 0,
@@ -20,7 +18,6 @@ def encode_label(label):
     }
     return mapping.get(label, 3)
 
-# ===== RETRAIN =====
 def retrain_model():
     print("Bắt đầu retrain...")
 
@@ -103,6 +100,5 @@ def retrain_model():
 
     print("Done retrain!")
 
-# ===== RUN =====
 if __name__ == "__main__":
     retrain_model()
