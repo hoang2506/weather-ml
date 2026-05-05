@@ -25,8 +25,10 @@ jobs:
       - name: Commit data
         run: |
           git config --global user.name "bot"
-          git config --global user.email "bot@github.com"
+          git config --global user.email "bot@example.com"
+          git stash                        # tạm cất thay đổi local
+          git pull origin main --rebase    # pull remote về
+          git stash pop                    # lấy lại thay đổi
           git add .
-          git commit -m "update data" || echo "no change"
-          git pull --rebase
-          git push
+          git commit -m "update data" || echo "No changes to commit"
+          git push origin main
