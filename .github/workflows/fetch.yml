@@ -20,7 +20,7 @@ jobs:
 
       - run: python fetch_weather.py
 
-      - run: python retrain_model.py
+      - run: python retrain_model.pkl
 
       - name: Commit data
         run: |
