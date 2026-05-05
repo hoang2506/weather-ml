@@ -48,6 +48,7 @@ def retrain_model():
     # 4. Encode
     if "weather_group" not in df.columns:
         print("❌ Thiếu cột weather_group")
+        print(df.columns)
         return
 
     df["label"] = df["weather_group"].apply(encode_label)
