@@ -99,7 +99,7 @@ def retrain_model():
 
     # 9. Save model
     joblib.dump(model, MODEL_PATH)
-    print(f"💾 Saved model → {MODEL_PATH}")
+    print(f"Saved model → {MODEL_PATH}")
 
     print("Done retrain!")
 
