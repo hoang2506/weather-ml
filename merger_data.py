@@ -18,10 +18,10 @@ def download_historical():
 def merge_data():
     download_historical()
 
-    df_hist = pd.read_csv(HIST_PATH)
+    df_hist = pd.read_csv(HIST_PATH, on_bad_lines='skip')
 
     if os.path.exists(REAL_PATH):
-        df_real = pd.read_csv(REAL_PATH)
+        df_real = pd.read_csv(REAL_PATH, on_bad_lines='skip')
         df = pd.concat([df_hist, df_real], ignore_index=True)
     else:
         df = df_hist
