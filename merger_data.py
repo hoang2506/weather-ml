@@ -3,10 +3,10 @@ import os
 import requests
 
 HIST_URL = "https://drive.google.com/uc?id=1fX3VeNhGsypxsHa1ia-3BlpCMsMk-pzi"
-HIST_PATH = "data/historical_data.csv"
+HIST_PATH = "historical_data.csv"
 
-REAL_PATH = "data/weather_data.csv"
-MERGED_PATH = "data/merged_data.csv"
+REAL_PATH = "weather_data.csv"
+MERGED_PATH = "merged_data.csv"
 
 def download_historical():
     if not os.path.exists(HIST_PATH):
