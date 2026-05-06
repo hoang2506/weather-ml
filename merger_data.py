@@ -43,5 +43,15 @@ def merge_data():
 
     print(f"merged: {len(df)} rows")
 
+def map_weather_group(main):
+    if main in ["Drizzle", "Rain", "Thunderstorm"]:
+        return "Rain"
+    elif main == "Clear":
+        return "Clear"
+    elif main == "Clouds":
+        return "Clouds"
+    else:
+        return "Other"
+
 if __name__ == "__main__":
     merge_data()
