@@ -5,9 +5,9 @@ from xgboost import XGBClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
-DATA_PATH = "weather_data.csv"      # file được tạo từ fetch_weather.py
-MODEL_PATH = "weather_forecast.sav"    # nơi lưu model
-MIN_ROWS = 50                       # tối thiểu để train
+DATA_PATH = "weather_data.csv"      
+MODEL_PATH = "weather_forecast.sav"    
+MIN_ROWS = 50                     
 
 def encode_label(label):
     mapping = {
@@ -70,13 +70,35 @@ def retrain_model():
         X, y, test_size=0.2, random_state=42
     )
 
+   old_model = None
+
+    if os.path.exists(MODEL_PATH):
+        print("Đã tìm thấy model cũ → tiếp tục train")
+
+        old_model = joblib.load(MODEL_PATH)
+
+    else:
+        print("Chưa có model → tạo model mới")
+
     model = XGBClassifier(
-        n_estimators=200,
+        n_estimators=50,   # số cây thêm mới
         max_depth=6,
         learning_rate=0.1,
         random_state=42,
         eval_metric="mlogloss"
     )
+
+    if old_model:
+        model.fit(
+            X_train,
+            y_train,
+            xgb_model=old_model
+        )
+    else:
+        model.fit(
+            X_train,
+            y_train
+        )
 
     model.fit(X_train, y_train)
 
