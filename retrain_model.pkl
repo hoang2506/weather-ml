@@ -70,7 +70,7 @@ def retrain_model():
         X, y, test_size=0.2, random_state=42
     )
 
-   old_model = None
+    old_model = None
 
     if os.path.exists(MODEL_PATH):
         print("Đã tìm thấy model cũ → tiếp tục train")
